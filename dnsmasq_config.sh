@@ -4,6 +4,18 @@
 echo "Backing up and configuring dnsmasq for LTSP..."
 mv /etc/ltsp/ltsp-dnsmasq.conf /etc/ltsp/ltsp-dnsmasq.conf.dpkg-old
 
+interface=$(ip -o -4 addr show up | awk '{print $2}' | grep -v lo | head -n 1)
+
+if [ -z "$interface" ]; then
+    echo "No active network interface found."
+    exit 1
+fi
+
+# Add the IP address to the detected interface
+sudo ip addr add 192.168.20.1/24 dev "$interface"
+
+echo "IP address 192.168.20.1/24 added to interface $interface"
+
 cat <<EOL > /etc/ltsp/ltsp-dnsmasq.conf
 # Disable DNS service
 port=0
