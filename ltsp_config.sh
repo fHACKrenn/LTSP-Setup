@@ -9,7 +9,7 @@ fi
 # Update and install required packages
 echo "Installing LTSP and dependencies..."
 apt update
-apt install --install-recommends -y ltsp ltsp-binaries dnsmasq nfs-kernel-server openssh-server squashfs-tools ethtool net-tools epoptes
+apt install --install-recommends -y ltsp ipxe dnsmasq nfs-kernel-server openssh-server squashfs-tools ethtool net-tools epoptes
 
 # Give permission to the user who invoked the script
 ADMIN_USER=$(logname)  
